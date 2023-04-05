@@ -3,6 +3,9 @@
 require_relative "sir_db_ruby/version"
 
 module SirDbRuby
-  class Error < StandardError; end
-  # Your code goes here...
+  root = nil
+  def config(root = nil)
+  end
+
+  private root
 end

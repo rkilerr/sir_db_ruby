@@ -1,0 +1,8 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="RubyInterpreter" enabled="true" level="TYPO" enabled_by_default="true" editorAttributes="TYPO">
+      <scope name="Project Files" level="TYPO" enabled="true" />
+    </inspection_tool>
+  </profile>
+</component>

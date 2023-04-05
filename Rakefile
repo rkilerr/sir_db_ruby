@@ -10,3 +10,6 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task default: :test
+task :run do
+  ruby "lib/sir_db_ruby.rb"
+end
