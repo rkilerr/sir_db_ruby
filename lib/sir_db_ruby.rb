@@ -1,11 +1,37 @@
-# frozen_string_literal: true
-
 require_relative "sir_db_ruby/version"
+require_relative "table"
 
 module SirDbRuby
-  root = nil
-  def config(root = nil)
+  @@root = nil
+  INTERNAL_RECORD="table_info.json"
+
+  def self.config(root = nil)
+    @@root = root
+    Dir.mkdir @@root if !Dir.exist?("#{Dir.pwd}/#{@@root}")
   end
 
-  private root
+  def self.get_table(table_name)
+    Dir.mkdir("#{Dir.pwd}/#{@@root}/#{table_name}")
+    info = ""
+    begin
+      info =
+        JSON.parse(
+          File.read("#{Dir.pwd}}/#{@@root}/#{table_name}}/#{INTERNAL_RECORD}")
+        )
+    rescue Errno::ENOENT
+      info = {
+        create_at: Time.new,
+        table_base:
+          File.expand_path("#{@@root}/#{table_name}/#{INTERNAL_RECORD}", Dir.pwd),
+        name: table_name
+      }
+
+      File.write(
+        "#{Dir.pwd}/#{@@root}/#{table_name}/table_info.json",
+        info.to_json
+      )
+    ensure
+      return Table.new(info)
+    end
+  end
 end

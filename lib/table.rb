@@ -3,7 +3,6 @@ require "digest"
 
 class Table
 
-  attr_reader :table_info, :base
   def initialize(table_info)
     if table_info.nil? || table_info.empty?
       raise Exception.new "Table constructor specify table_info"
@@ -43,31 +42,34 @@ class Table
   end
 end
 
-def open_file(table_name)
-  info = ""
-  begin
-    info =
-      JSON.parse(
-        File.read("#{Dir.pwd}}/test-table/#{table_name}}/table_info.json")
-      )
-  rescue Errno::ENOENT
-    info = {
-      create_at: Time.new,
-      table_base:
-        File.expand_path("test-table/#{table_name}/table_info.json", Dir.pwd),
-      name: table_name
-    }
+# def open_file(table_name)
+#   info = ""
+#   begin
+#     info =
+#       JSON.parse(
+#         File.read("#{Dir.pwd}}/test-table/#{table_name}}/table_info.json")
+#       )
+#   rescue Errno::ENOENT
+#     info = {
+#       create_at: Time.new,
+#       table_base:
+#         File.expand_path("test-table/#{table_name}/table_info.json", Dir.pwd),
+#       name: table_name
+#     }
 
-    File.write(
-      "#{Dir.pwd}/test-table/#{table_name}/table_info.json",
-      info.to_json
-    )
-  ensure
-    return Table.new(info)
-  end
-end
+#     File.write(
+#       "#{Dir.pwd}/test-table/#{table_name}/table_info.json",
+#       info.to_json
+#     )
+#   ensure
+#     return Table.new(info)
+#   end
+# end
 
-tab = open_file("users")
-tab.put("1", {name: "Alex", age: 19})
-users = tab.get_all
-p users
+# tab = open_file("users")
+# tab.put("1", {name: "Alex", age: 19})
+# users = tab.get_all
+# p users
+
+# i_t = open_file("users")
+# p i_t.put("1", {name: "User"})
