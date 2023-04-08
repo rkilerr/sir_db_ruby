@@ -11,6 +11,7 @@ module SirDbRuby
   end
 
   def self.get_table(table_name)
+    return nil if @@root == nil
     Dir.mkdir("#{Dir.pwd}/#{@@root}/#{table_name}")
     info = ""
     begin
@@ -33,5 +34,10 @@ module SirDbRuby
     ensure
       return Table.new(info)
     end
+  end
+
+  def self.drop_table(table_name)
+    path = "#{Dir.pwd}/#{@@root}/#{table_name}"
+    FileUtils.remove_dir(path) if Dir.exist?(path)
   end
 end
